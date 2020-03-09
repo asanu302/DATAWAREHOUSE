@@ -1,0 +1,201 @@
+
+CREATE Fact_table
+-----------------
+
+USE [world_heritage_sites_tourism]
+CREATE TABLE [dbo].[world_heritage_fact_table](
+	[total_number_of_heritage] [int] NULL,
+	[tourism_gdp_percentage_2015] [real] NULL,
+	[tourism_gdp_percentage_2016] [real] NULL,
+	[tourism_gdp_percentage_2017] [real] NULL,
+	[total_visitors_in_2015]  float,
+	[total_visitors_in_2016 ] float,
+	[total_visitors_in_2017] float,
+	[Total_Revenue_2015_Q1] [bigint] NULL,
+	[Total_Revenue_2015_Q2] [bigint] NULL,
+	[Total_Revenue_2015_Q3] [bigint] NULL,
+	[Total_Revenue_2015_Q4] [bigint] NULL,
+	[Total_Revenue_2015] [bigint] NULL,
+	[Total_Revenue_2016_Q1] [bigint] NULL,
+	[Total_Revenue_2016_Q2] [bigint] NULL,
+	[Total_Revenue_2016_Q3] [bigint] NULL,
+	[Total_Revenue_2016_Q4] [bigint] NULL,
+	[Total_Revenue_2016] [bigint] NULL,
+	[Total_Revenue_2017_Q1] [bigint] NULL,
+	[Total_Revenue_2017_Q2] [bigint] NULL,
+	[Total_Revenue_2017_Q3] [bigint] NULL,
+	[Total_Revenue_2017_Q4] [bigint] NULL,
+	[Total_Revenue_2017] [bigint] NULL,
+	[sentiment_score] [int] NULL,
+	[country_id] [int] NULL,
+	[heritage_id] [int] NULL,
+	[revenue_id] [int] NULL,
+	[sentiment_id] [int] NULL
+	)
+
+
+---------------------------------
+
+
+--------------------------
+Insert
+------------------------------
+use [world_heritage_sites_tourism]
+INSERT INTO world_heritage_fact_table (
+
+      [total_number_of_heritage]
+      ,[tourism_gdp_percentage_2015]
+      ,[tourism_gdp_percentage_2016]
+      ,[tourism_gdp_percentage_2017]
+      ,[total_visitors_in_2015]
+      ,[total_visitors_in_2016]
+      ,[total_visitors_in_2017]
+      ,[Total_Revenue_2015_Q1]
+      ,[Total_Revenue_2015_Q2]
+      ,[Total_Revenue_2015_Q3]
+      ,[Total_Revenue_2015_Q4]
+      ,[Total_Revenue_2015]
+      ,[Total_Revenue_2016_Q1]
+      ,[Total_Revenue_2016_Q2]
+      ,[Total_Revenue_2016_Q3]
+      ,[Total_Revenue_2016_Q4]
+      ,[Total_Revenue_2016]
+      ,[Total_Revenue_2017_Q1]
+      ,[Total_Revenue_2017_Q2]
+      ,[Total_Revenue_2017_Q3]
+      ,[Total_Revenue_2017_Q4]
+      ,[Total_Revenue_2017]
+      ,[sentiment_score]
+      ,[country_id]
+      ,[heritage_id]
+      ,[revenue_id]
+      ,[sentiment_id]
+
+)
+
+select 
+	--countrydata
+	cd.total_number_of_heritage
+	,cd.tourism_gdp_percentage_2015
+	,cd.tourism_gdp_percentage_2016
+	,cd.tourism_gdp_percentage_2017
+	--heritagedata
+	,hd.total_visitors_in_2015
+	,hd.total_visitors_in_2016
+	,hd.total_visitors_in_2017
+	--revenuedata
+	,rd.Total_Revenue_2015_Q1
+	,rd.Total_Revenue_2015_Q2
+    ,rd.Total_Revenue_2015_Q3
+    ,rd.Total_Revenue_2015_Q4
+    ,rd.Total_Revenue_2015
+    ,rd.Total_Revenue_2016_Q1
+    ,rd.Total_Revenue_2016_Q2
+    ,rd.Total_Revenue_2016_Q3
+    ,rd.Total_Revenue_2016_Q4
+    ,rd.Total_Revenue_2016
+    ,rd.Total_Revenue_2017_Q1
+    ,rd.Total_Revenue_2017_Q2
+    ,rd.Total_Revenue_2017_Q3
+    ,rd.Total_Revenue_2017_Q4
+    ,rd.Total_Revenue_2017
+	--sentimentdata
+	,sd.sentiment_score
+	--dimcountry
+      ,dcd.country_id
+	  --dimheritage
+      ,dhd.heritage_id
+	  --dimrevenue
+      ,drd.revenue_id
+	  --dimsentiment
+      ,dsd.sentiment_id
+
+from country_data cd 
+join heritage_data  hd on hd.Country = cd.Country  
+join revenue_data rd on rd.country_name = hd.Country
+join sentimant_data sd on sd.heritage_site = hd.global_heritage_sites
+join dim_country_data dcd on dcd.Country = cd.Country
+join dim_heritage_data dhd on dhd.global_heritage_sites = hd.global_heritage_sites
+join dim_revenue_data drd on drd.revenue_id = rd.revenue_id
+join dim_sentimant_data dsd on dsd.Sentiment_id = sd.Sentiment_id
+
+
+-----------------------------------------------------
+
+DIM_COUNTRY_DATA
+
+-----
+
+CREATE TABLE [dbo].[dim_country_data](
+	[country_id] [int] NOT NULL,
+	[Country] [varchar](max) NULL,
+PRIMARY KEY 
+
+
+--------------------------
+
+DIM_HERITAGE_DATA
+
+CREATE TABLE [dbo].[dim_heritage_data](
+	[heritage_id] [int] NOT NULL,
+	[global_heritage_sites] [varchar](max) NULL,
+PRIMARY KEY CLUSTERED 
+
+
+
+--------------------
+
+DIM_REVENUE_DATA
+
+
+
+CREATE TABLE [dbo].[dim_revenue_data](
+	[revenue_id] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+)
+
+
+---------------------
+DIM_SENTIMENT_DATA
+
+
+CREATE TABLE [dbo].[dim_sentimant_data](
+	[Sentiment_Id] [int] NOT NULL,
+	[sentiment_score] [int] NULL,
+PRIMARY KEY CLUSTERED 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+SELECT        A.agrland, A.agrexp, A.agremp, A.agrfert, A.foodexp, A.gdp, A.Country_1, A.Year_1, C.[Value], C.Country_2, C.Year_2, D.Country_3, D.Year_3, D.Cropyields, S.Year_5, S.BISIvalue, S.INDFvalue, S.UNVRvalue, 
+                         U.Country_4, U.Year_4, U.UrbanPopulation
+FROM            Raw_AgrData AS A INNER JOIN
+                         Raw_CAsset AS C ON C.Country_2 = A.Country_1 INNER JOIN
+                         Raw_CYields AS D ON D.Country_3 = A.Country_1 INNER JOIN
+                         Raw_StockValue AS S ON S.Year_5 = A.Year_1 INNER JOIN
+                         Raw_UrbanPopulation AS U ON U.Year_4 = A.Year_1
+
+
+BEGIN TRUNCATE TABLE Raw_AgrData TRUNCATE TABLE Raw_CAsset TRUNCATE TABLE Raw_CYields TRUNCATE TABLE Raw_UrbanPopulation TRUNCATE TABLE Raw_StockValue TRUNCATE TABLE AgricultureImpact TRUNCATE
+ TABLE DimYear TRUNCATE TABLE DimCountry END
+

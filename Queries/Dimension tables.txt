@@ -1,0 +1,117 @@
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[Dim_City]') AND type = (N'U')) 
+
+CREATE TABLE [dbo].[Dim_City](
+	[City_id] [int] identity(1,1) primary key,
+	[cont_id] [int]NULL,
+	[country_code] [varchar](50) NULL,
+	[country_id] [int] NULL,
+	[city_name] [char](50) NULL,
+	[time_zone] [varchar](50) NULL,
+) ON [PRIMARY]
+GO
+
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[Dim_Country]') AND type = (N'U')) 
+CREATE TABLE [dbo].[Dim_Country](
+	[Country_id] [int] identity(1,1) primary key,
+	[cont_id] [int] NULL,
+	[country_code] [varchar](50) NULL,
+	[country_name] [varchar](50) NULL,
+	[region_name] [varchar](50) NULL,
+) ON [PRIMARY]
+GO
+
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[Dim_Continent]') AND type = (N'U')) 
+CREATE TABLE [dbo].[Dim_Continent](
+	[cont_id] [int] identity(1,1) primary key,
+	[cont_code] [varchar](50) NULL,
+	[continent_name] [varchar](50) NULL,
+) ON [PRIMARY]
+GO
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[Dim_Airport]') AND type = (N'U')) 
+CREATE TABLE [dbo].[Dim_Airport](
+	[Ap_id] [int] identity(1,1) primary key,
+	[Rank_ap] [int] NULL,
+	[city_id] [int] NULL,
+	[province_name] [varchar](50) NULL,
+	[country_id] [int] NULL,
+	[total_pass] [int] NULL
+) ON [PRIMARY]
+GO
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[Dim_Arrival]') AND type = (N'U')) 
+CREATE TABLE [dbo].[Dim_Arrival](
+	[Arr_id] [int] identity(1,1) primary key,
+	[country_id] [int] NULL,
+	[date_id] [int] NULL,
+	[total_arrival] [int] NULL,
+) ON [PRIMARY]
+GO
+
+
+
+
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[Dim_Citytour]') AND type = (N'U')) 
+CREATE TABLE [dbo].[Dim_Citytour](
+	[Ctour_id] [int] identity(1,1) primary key,
+	[rank_ctour] [int] NULL,
+	[city_id] [int] NULL,
+	[country_id] [int] NULL,
+	[total_tourists] [int] NULL,
+) ON [PRIMARY]
+GO
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[Dim_Departure]') AND type = (N'U')) 
+CREATE TABLE [dbo].[Dim_Departure](
+	[dep_id] [int] identity(1,1) primary key,
+	[country_id] [int] NULL,
+	[date_id] [int] NULL,
+	[total_departures] [int] NULL,
+) ON [PRIMARY]
+GO
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[Dim_Gdpcity]') AND type = (N'U')) 
+CREATE TABLE [dbo].[Dim_Gdpcity](
+	[Gdp_id] [int] identity(1,1) primary key,
+	[rank_gdp] [int] NULL,
+	[city_id] [int] NULL,
+	[country_id] [int] NULL,
+	[gdp_city] [int] NULL,
+) ON [PRIMARY]
+GO
+
+
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[Dim_GdpWorld]') AND type = (N'U')) 
+CREATE TABLE [dbo].[Dim_GdpWorld](
+	[Gdpw_id] [int] identity(1,1) primary key,
+	[country_id] [int] NULL,
+	[date_id] [int] NULL,
+	[total_gdp] [int] NULL,
+	[gdp_world] [int] NULL,
+) ON [PRIMARY]
+GO
+
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[Dim_Terror]') AND type = (N'U')) 
+CREATE TABLE [dbo].[Dim_Terror](
+ 	[Terror_id] [int] identity(1,1) primary key,
+	[country_id] [int] NULL,
+	[date_id] [int] NULL,
+	[Terror_Impact] [float] NULL,
+) ON [PRIMARY] 
+GO
+ 
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[Dim_Tweets]') AND type = (N'U')) 
+CREATE TABLE [dbo].[Dim_Tweets](
+	[Tweet_id] [int] identity(1,1) primary key,
+	[country_id] [int] NULL,
+	[city_id] [int] NULL,
+	[pos_count] [int] NULL,
+	[new_count] [int] NULL,
+	[tweet_score] [int] NULL,
+) ON [PRIMARY]
+GO

@@ -1,0 +1,108 @@
+
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[city]') AND type = (N'U')) 
+CREATE TABLE [dbo].[city](
+	[geoname_id] [int] NULL,
+	[continent_code] [varchar](50) NULL,
+	[country_iso_code] [varchar](50) NULL,
+	[subdivision_1_name] [varchar](50) NULL,
+	[city_name] [char](50) NULL,
+	[time_zone] [nvarchar](50) NULL
+) ON [PRIMARY]
+GO
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[country]') AND type = (N'U')) 
+CREATE TABLE [dbo].[Country](
+	[geoname_id] [int] NULL,
+	[continent_code] [nchar](50) NULL,
+	[continent_name] [nvarchar](50) NULL,
+	[country_iso_code_long] [nvarchar](100) NULL,
+	[country_name] [nvarchar](50) NULL,
+	[region_name] [nvarchar](50) NULL
+) ON [PRIMARY]
+GO
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[continent]') AND type = (N'U')) 
+CREATE TABLE [dbo].[continent](
+	[continent_code] [nvarchar](50) NULL,
+	[continent_name] [nvarchar](50) NULL
+) ON [PRIMARY]
+GO
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[airport]') AND type = (N'U')) 
+CREATE TABLE [dbo].[airport](
+	[Rank] [int] NULL,
+	[airport_name] [nvarchar](50) NULL,
+	[city_name] [nvarchar](50) NULL,
+	[province_name] [nvarchar](50) NULL,
+	[country_name] [nvarchar](50) NULL,
+	[total_passengers] [int] NULL
+) ON [PRIMARY]
+GO
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[arrivals]') AND type = (N'U')) 
+CREATE TABLE [dbo].[arrivals](
+	[country_name] [nvarchar](50) NULL,
+	[date] [int] NULL,
+	[total] [int] NULL
+) ON [PRIMARY]
+GO
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[city_tourism]') AND type = (N'U')) 
+CREATE TABLE [dbo].[city_tourism](
+	[Rank] [int] NULL,
+	[city_name] [nvarchar](50) NULL,
+	[country_name] [nvarchar](50) NULL,
+	[total_tourists] [float] NULL
+) ON [PRIMARY]
+GO
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[departures]') AND type = (N'U')) 
+CREATE TABLE [dbo].[departures](
+	[country_name] [nvarchar](50) NULL,
+	[Date] [int] NULL,
+	[Total] [int] NULL
+) ON [PRIMARY]
+GO
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[gdp_city]') AND type = (N'U')) 
+CREATE TABLE [dbo].[gdp_city](
+	[rank] [int] NULL,
+	[city_name] [nvarchar](50) NULL,
+	[country_name] [nvarchar](50) NULL,
+	[gdp_billions] [int] NULL
+) ON [PRIMARY]
+GO
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[gdp_world]') AND type = (N'U')) 
+CREATE TABLE [dbo].[gdp_world](
+	[country_name] [nvarchar](50) NULL,
+	[series] [nvarchar](50) NULL,
+	[Unit] [nvarchar](50) NULL,
+	[date] [int] NULL,
+	[total] [int] NULL,
+	[gdpw_billions] [float]NULL
+) ON [PRIMARY]
+GO
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[Terror_score]') AND type = (N'U')) 
+CREATE TABLE [dbo].[Terror_score](
+	[country_name] [nvarchar](50) NULL,
+	[indicator] [nvarchar](50) NULL,
+	[unit] [nvarchar](max) NULL,
+	[date] [int] NULL,
+	[value] [float] NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+IF NOT EXISTS(SELECT 1 FROM sysobjects with (nolock) WHERE ID = OBJECT_ID(N'[dbo].[tweets_score]') AND type = (N'U')) 
+CREATE TABLE [dbo].[tweets_score](
+	[country_name] [nvarchar](50) NULL,
+	[city_name] [nvarchar](50) NULL,
+	[total_tweets][float] NULL,
+	[pos_count] [int] NULL,
+	[new_count] [int] NULL,
+	[all_count] [int] NULL,
+	[score] [int] NULL
+) ON [PRIMARY]
+GO
